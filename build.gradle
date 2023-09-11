@@ -1,0 +1,63 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.0'
+    id 'maven-publish'
+    id 'java'
+}
+
+apply from: 'gradle/dependencies.gradle'
+
+version = '1.0.2'
+group = 'org.gradle.samples'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation libs.jsonPath
+    implementation libs.jsonSimple
+    implementation libs.commonCodec
+    implementation libs.ibmMq
+
+//    implementation libs.spring
+//    implementation libs.spring_autoconfigure
+    implementation libs.spring_boot
+    implementation libs.spring_jdbc
+    implementation libs.spring_kafka
+    implementation libs.kafka_clients
+    implementation libs.spring_web
+    implementation libs.cucumber
+    implementation libs.google_guava
+    implementation libs.apacheCommons
+    implementation libs.commonsDbcp
+    implementation libs.logging
+    implementation libs.lombok
+
+    implementation libs.mockito
+    implementation libs.spring_test
+
+    annotationProcessor libs.lombok
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'ru.common-test.framework'
+            artifactId = 'common-test'
+            version = '1.0'
+
+            from components.java
+        }
+    }
+}

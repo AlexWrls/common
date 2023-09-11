@@ -1,0 +1,80 @@
+// define versions used in multiple dependencies
+def springVer = "5.1.3.RELEASE"
+def springWsSupportVer = "2.3.0.RELEASE"
+def springKafkaVer = "2.2.13.RELEASE"
+
+def googleGuavaVer = "23.0"
+
+def cucumberVersion = "7.2.3"
+def mockitoVersion = "1.10.19"
+
+def slf4jVer = "1.7.21"
+
+def commonsLang3Ver = "3.12.0"
+def commonsCollections = "4.0"
+def commonsIO = "2.6"
+def commonsDbcpVersion = "1.4"
+def commonsCodec = "1.10"
+
+def jsonPathVersion = "2.6.0"
+def jsonSimpleVersion = "1.1.1"
+
+def javaxJsmVer = "2.0.1"
+def ibmVer = "9.2.5.0"
+
+ext {
+    println "Gradle version: $gradle.gradleVersion"
+    // define single dependencies
+
+    libs = [
+            lombok            : "org.projectlombok:lombok:1.16.18",
+
+            spring_autoconfigure           : "org.springframework.boot:spring-boot-autoconfigure:2.7.0",
+            spring_boot    : "org.springframework.boot:spring-boot:2.7.0",
+            spring_jdbc :"org.springframework.boot:spring-boot-starter-jdbc:2.7.0",
+
+            spring_web:"org.springframework.boot:spring-boot-starter-web:2.7.0",
+            spring_test :"org.springframework.boot:spring-boot-starter-test:2.7.0",
+
+            spring_kafka :"org.springframework.kafka:spring-kafka:2.7.0",
+            kafka_clients: "org.apache.kafka:kafka-clients:2.7.0",
+
+            //cucumber
+            cucumberJava      : "io.cucumber:cucumber-java:$cucumberVersion",
+            cucumberJunit     : "io.cucumber:cucumber-junit:$cucumberVersion",
+            cucumberSpring    : "io.cucumber:cucumber-spring:$cucumberVersion",
+
+            //commons
+            commonsCollections: "org.apache.commons:commons-collections4:$commonsCollections",
+            commonsLang3      : "org.apache.commons:commons-lang3:$commonsLang3Ver",
+            commonsIO         : "commons-io:commons-io:$commonsIO",
+            commonsDbcp       : "commons-dbcp:commons-dbcp:$commonsDbcpVersion",
+            commonCodec       : "commons-codec:commons-codec:$commonsCodec",
+
+            google_guava      : "com.google.guava:guava:$googleGuavaVer",
+
+            //test
+            mockito           : "org.mockito:mockito-all:${mockitoVersion}",
+//            springTest        : "org.springframework:spring-test:$springVer",
+
+            //json
+            jsonPath          : "com.jayway.jsonpath:json-path:$jsonPathVersion",
+            jsonSimple        : "com.googlecode.json-simple:json-simple:$jsonSimpleVersion",
+
+            //logging
+            slf4jApi          : "org.slf4j:slf4j-api:$slf4jVer",
+            jclOverSlf4j      : "org.slf4j:jcl-over-slf4j:$slf4jVer",
+            julToSlf4j        : "org.slf4j:jul-to-slf4j:$slf4jVer",
+            log4jOverSlf4j    : "org.slf4j:log4j-over-slf4j:$slf4jVer",
+            logbackClassic    : "ch.qos.logback:logback-classic:1.2.3",
+
+            //ibmMQ
+            comIbmMq          : "com.ibm.mq:com.ibm.mq.allclient:$ibmVer",
+            javaxJms          : "javax.jms:javax.jms-api:$javaxJsmVer",
+    ]
+
+    libs.apacheCommons = [libs.commonsLang3, libs.commonsCollections, libs.commonsIO]
+    libs.cucumber = [libs.cucumberJava, libs.cucumberJunit, libs.cucumberSpring]
+    libs.logging = [libs.slf4jApi, libs.jclOverSlf4j, libs.julToSlf4j, libs.log4jOverSlf4j, libs.logbackClassic]
+    libs.ibmMq = [libs.comIbmMq, libs.javaxJms]
+}
